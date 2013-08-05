@@ -9,16 +9,17 @@ interfaces = db['interfaces']
 
 
 service "networking" do
+	provider Chef::Provider::Service::Upstart
 	service_name "networking"
-  action :restart
+  	action :restart
 end
 
 template "/etc/network/interfaces" do
 	source "interfaces.erb"
 	owner "root"	
 	group "root"
-  mode "0644"
-  action :create
+  	mode "0644"
+  	action :create
 	variables :interfaces => interfaces
 	#notifies :start, "service[networking]", :immediately
 end
